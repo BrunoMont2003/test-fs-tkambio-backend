@@ -35,6 +35,7 @@ class ExcelService
             $row++;
         }
 
+        $title = preg_replace('/[^a-zA-Z0-9]/', '', $title);
         $fileName = "{$title}_" . now()->format('YmdHis') . ".xlsx";
         $filePath = storage_path("app/public/{$fileName}");
 

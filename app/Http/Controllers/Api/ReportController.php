@@ -12,6 +12,7 @@ use App\Core\Application\DTOs\ListReportsDTO;
 use App\Http\Requests\GenerateReportRequest;
 use App\Http\Requests\GetReportRequest;
 use App\Http\Requests\ListReportsRequest;
+use App\Infrastructure\Jobs\GenerateReportJob;
 use Illuminate\Http\JsonResponse;
 
 class ReportController extends Controller
@@ -43,12 +44,12 @@ class ReportController extends Controller
             $request->input('birth_date_from'),
             $request->input('birth_date_to')
         );
-        $report = $this->generateReportUseCase->execute($dto);
+
+        GenerateReportJob::dispatch($dto);
 
         return response()->json([
-            'message' => 'Report generated successfully.',
-            'report' => $report
-        ], 201);
+            'message' => 'Report generation started. You will be notified once it is ready.',
+        ], 202);
     }
 
     /**
