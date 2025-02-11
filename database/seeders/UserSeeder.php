@@ -1,0 +1,28 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
+
+class UserSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $faker = Faker::create();
+
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('users')->insert([
+                'id' => $faker->uuid,
+                'name' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'password' => Hash::make('password'),
+                'birth_date' => $faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('Y-m-d'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+    }
+}
