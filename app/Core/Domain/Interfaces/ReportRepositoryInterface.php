@@ -51,9 +51,7 @@ interface ReportRepositoryInterface
      * Obtiene el total de reportes.
      *
      * @param array|null $dateRange
-     * @param int|null $limit
-     * @param int|null $offset
      * @return int
      */
-    public function count(?array $dateRange, ?int $limit, ?int $offset): int;
+    public function count(?array $dateRange): int;
 }

@@ -108,21 +108,13 @@ class ReportRepository implements ReportRepositoryInterface
      * Obtiene el total de reportes.
      *
      * @param array|null $dateRange
-     * @param int|null $limit
-     * @param int|null $offset
      * @return int
      */
-    public function count(?array $dateRange, ?int $limit, ?int $offset): int
+    public function count(?array $dateRange): int
     {
         return DB::table('reports')
             ->when($dateRange, function ($query, $dateRange) {
                 $query->whereBetween('createdAt', $dateRange);
-            })
-            ->when($limit, function ($query, $limit) {
-                $query->take($limit);
-            })
-            ->when($offset, function ($query, $offset) {
-                $query->skip($offset);
             })
             ->count();
     }
