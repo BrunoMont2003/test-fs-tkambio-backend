@@ -26,8 +26,8 @@ class User
             name: $data['name'],
             email: $data['email'],
             password: $data['password'],
-            birthDate: $data['birth_date'] ?? null,
-            createdAt: $data['created_at']
+            birthDate: $data['birthDate'] ?? null,
+            createdAt: $data['createdAt']
         );
     }
 
@@ -43,8 +43,8 @@ class User
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
-            'birth_date' => $this->birthDate,
-            'created_at' => $this->createdAt,
+            'birthDate' => $this->birthDate,
+            'createdAt' => $this->createdAt,
         ];
     }
 }

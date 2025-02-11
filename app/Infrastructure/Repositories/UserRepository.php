@@ -31,7 +31,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getAllByBirthDate(string $birthDateFrom, string $birthDateTo): array
     {
-        $users = DB::table('users')->whereBetween('birth_date', [$birthDateFrom, $birthDateTo])->get();
+        $users = DB::table('users')->whereBetween('birthDate', [$birthDateFrom, $birthDateTo])->get();
 
         return $users->map(function ($user) {
             return User::fromArray((array) $user);

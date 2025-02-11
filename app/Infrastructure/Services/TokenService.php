@@ -45,4 +45,19 @@ class TokenService
             ->where('tokenable_type', 'App\Core\Domain\User')
             ->delete();
     }
+
+    /**
+     * Verifica si un token es válido.
+     *
+     * @param string $userId
+     * @param string $tokenName
+     * @return bool
+     */
+    public function hasValidToken(string $userId, string $tokenName): bool
+    {
+        return PersonalAccessToken::where('tokenable_id', $userId)
+            ->where('tokenable_type', 'App\Core\Domain\User')
+            ->where('name', $tokenName)
+            ->exists();
+    }
 }

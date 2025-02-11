@@ -19,8 +19,24 @@ class ReportRepository implements ReportRepositoryInterface
         DB::table('reports')->insert([
             'id' => $report->id,
             'title' => $report->title,
-            'report_link' => $report->reportLink,
-            'created_at' => $report->createdAt,
+            'reportLink' => $report->reportLink,
+            'status' => $report->status ?? 'pending',
+            'createdAt' => $report->createdAt,
+        ]);
+    }
+
+    /**
+     * Actualiza un reporte.
+     *
+     * @param Report $report
+     * @return void
+     */
+    public function update(Report $report): void
+    {
+        DB::table('reports')->where('id', $report->id)->update([
+            'title' => $report->title,
+            'reportLink' => $report->reportLink,
+            'status' => $report->status,
         ]);
     }
 
@@ -41,8 +57,9 @@ class ReportRepository implements ReportRepositoryInterface
         return new Report(
             id: $report->id,
             title: $report->title,
-            reportLink: $report->report_link,
-            createdAt: $report->created_at
+            reportLink: $report->reportLink,
+            createdAt: $report->createdAt,
+            status: $report->status,
         );
     }
 
@@ -59,8 +76,9 @@ class ReportRepository implements ReportRepositoryInterface
             return new Report(
                 id: $report->id,
                 title: $report->title,
-                reportLink: $report->report_link,
-                createdAt: $report->created_at
+                reportLink: $report->reportLink,
+                status: $report->status,
+                createdAt: $report->createdAt
             );
         })->toArray();
     }
@@ -77,7 +95,7 @@ class ReportRepository implements ReportRepositoryInterface
     {
         $reports = DB::table('reports')
             ->when($dateRange, function ($query, $dateRange) {
-                $query->whereBetween('created_at', $dateRange);
+                $query->whereBetween('createdAt', $dateRange);
             })
             ->skip($offset)
             ->take($limit)
@@ -98,7 +116,7 @@ class ReportRepository implements ReportRepositoryInterface
     {
         return DB::table('reports')
             ->when($dateRange, function ($query, $dateRange) {
-                $query->whereBetween('created_at', $dateRange);
+                $query->whereBetween('createdAt', $dateRange);
             })
             ->when($limit, function ($query, $limit) {
                 $query->take($limit);

@@ -49,4 +49,15 @@ class AuthService
     {
         $this->tokenService->deleteTokens($userId);
     }
+
+    /**
+     * Verifica si el token es válido.
+     *
+     * @param string $userId
+     * @return bool
+     */
+    public function checkToken(string $userId): bool
+    {
+        return $this->tokenService->hasValidToken($userId, 'api-token');
+    }
 }

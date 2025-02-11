@@ -42,4 +42,24 @@ class AuthController extends Controller
             'message' => 'Logged out successfully.',
         ]);
     }
+
+    public function verifyToken(Request $request)
+    {
+        $userId = $request->user_id;
+        if (!$userId) {
+            return response()->json([
+                'message' => 'Token not found or invalid.',
+            ], 401);
+        }
+
+        if (!$this->authService->checkToken($userId)) {
+            return response()->json([
+                'message' => 'Token not found or invalid.',
+            ], 401);
+        }
+
+        return response()->json([
+            'message' => 'Token verified successfully.',
+        ]);
+    }
 }

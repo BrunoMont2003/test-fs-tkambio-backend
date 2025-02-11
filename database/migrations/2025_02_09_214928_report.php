@@ -11,8 +11,10 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
-            $table->string('report_link');
-            $table->timestamps();
+            $table->string('reportLink')->nullable();
+            $table->string('status')->default('pending');
+            $table->timestamp('createdAt');
+            $table->timestamp('updatedAt')->nullable();
         });
     }
 

@@ -29,16 +29,13 @@ class GenerateReport
     {
         $users = $this->userRepository->getAllByBirthDate($dto->birthDateFrom, $dto->birthDateTo);
 
-        $reportLink = $this->excelService->generateReport($users, $dto->title);
+        $reportLink = $this->excelService->generateReport($users, $dto->report->title);
 
-        $report = new Report(
-            id: Uuid::uuid4()->toString(),
-            title: $dto->title,
-            reportLink: $reportLink,
-            createdAt: now()->toDateTimeString()
-        );
-
-        $this->reportRepository->save($report);
+        $report = $dto->report;
+        $report->reportLink = $reportLink;
+        $report->status = 'done';
+        $report->updatedAt = now();
+        $this->reportRepository->update($report);
 
         return $report;
     }

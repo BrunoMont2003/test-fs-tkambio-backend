@@ -15,6 +15,14 @@ interface ReportRepositoryInterface
     public function save(Report $report): void;
 
     /**
+     * Actualiza un reporte.
+     *
+     * @param Report $report
+     * @return void
+     */
+    public function update(Report $report): void;
+
+    /**
      * Obtiene un reporte por su ID.
      *
      * @param string $reportId

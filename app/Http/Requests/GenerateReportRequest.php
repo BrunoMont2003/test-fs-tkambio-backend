@@ -27,8 +27,8 @@ class GenerateReportRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'birth_date_from' => 'required|date',
-            'birth_date_to' => 'required|date',
+            'birthDateFrom' => 'required|date',
+            'birthDateTo' => 'required|date',
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Http\Middleware\AuthenticateDomainUser;
 
 Route::prefix('v1')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/verify-token', [AuthController::class, 'verifyToken'])->name('verify-token');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware(AuthenticateDomainUser::class);
     Route::middleware(AuthenticateDomainUser::class)->group(function () {
         Route::post('/generate-report', [ReportController::class, 'generateReport'])->name('generate-report');

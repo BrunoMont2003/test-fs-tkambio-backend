@@ -19,9 +19,9 @@ class UserSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make('password'),
-                'birth_date' => $faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('Y-m-d'),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'birthDate' => $faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('Y-m-d'),
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ]);
         }
     }
