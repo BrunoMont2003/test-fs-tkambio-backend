@@ -22,6 +22,28 @@ class UserRepository implements UserRepositoryInterface
         })->toArray();
     }
 
+    /**
+     * Obtiene los usuarios entre rango de fecha de nacimiento.
+     *
+     * @param string $birthDateFrom
+     * @param string $birthDateTo
+     * @return User[]
+     */
+    public function getAllByBirthDate(string $birthDateFrom, string $birthDateTo): array
+    {
+        $users = DB::table('users')->whereBetween('birth_date', [$birthDateFrom, $birthDateTo])->get();
+
+        return $users->map(function ($user) {
+            return User::fromArray((array) $user);
+        })->toArray();
+    }
+
+    /**
+     * Obtiene un usuario por su correo electrónico.
+     *
+     * @param string $email
+     * @return ?User
+     */
     public function findByEmail(string $email): ?User
     {
         $user = DB::table('users')->where('email', $email)->first();
