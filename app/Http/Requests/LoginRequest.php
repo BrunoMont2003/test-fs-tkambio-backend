@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class GenerateReportRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determina si el usuario está autorizado para hacer esta solicitud.
@@ -26,9 +26,8 @@ class GenerateReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'birth_date_from' => 'required|date',
-            'birth_date_to' => 'required|date',
+            'email' => 'required|email',
+            'password' => 'required|string',
         ];
     }
 

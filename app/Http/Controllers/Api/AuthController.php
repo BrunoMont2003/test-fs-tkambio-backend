@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Infrastructure\Services\AuthService;
 
@@ -15,17 +16,14 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
 
         $token = $this->authService->login($request->email, $request->password);
 
         if (!$token) {
             return response()->json([
+                'message' => 'Unauthorized',
                 'errors' => ['The provided credentials are incorrect.'],
             ], 401);
         }
