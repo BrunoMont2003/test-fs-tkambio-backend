@@ -49,15 +49,11 @@ class TokenService
     /**
      * Verifica si un token es válido.
      *
-     * @param string $userId
-     * @param string $tokenName
+     * @param string $token
      * @return bool
      */
-    public function hasValidToken(string $userId, string $tokenName): bool
+    public function isValidToken(string $token): bool
     {
-        return PersonalAccessToken::where('tokenable_id', $userId)
-            ->where('tokenable_type', 'App\Core\Domain\User')
-            ->where('name', $tokenName)
-            ->exists();
+        return PersonalAccessToken::where('token', hash('sha256', $token))->exists();
     }
 }

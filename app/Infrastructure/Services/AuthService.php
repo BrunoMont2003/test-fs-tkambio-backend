@@ -53,11 +53,11 @@ class AuthService
     /**
      * Verifica si el token es válido.
      *
-     * @param string $userId
+     * @param string $token
      * @return bool
      */
-    public function checkToken(string $userId): bool
+    public function checkToken(string $token): bool
     {
-        return $this->tokenService->hasValidToken($userId, 'api-token');
+        return $this->tokenService->isValidToken($token);
     }
 }

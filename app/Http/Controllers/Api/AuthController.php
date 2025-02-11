@@ -45,14 +45,9 @@ class AuthController extends Controller
 
     public function verifyToken(Request $request)
     {
-        $userId = $request->user_id;
-        if (!$userId) {
-            return response()->json([
-                'message' => 'Token not found or invalid.',
-            ], 401);
-        }
+        $token = $request->bearerToken();
 
-        if (!$this->authService->checkToken($userId)) {
+        if (!$this->authService->checkToken($token)) {
             return response()->json([
                 'message' => 'Token not found or invalid.',
             ], 401);
