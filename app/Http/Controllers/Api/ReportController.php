@@ -58,8 +58,8 @@ class ReportController extends Controller
             $request->input('birthDateTo')
         );
 
-        // GenerateReportJob::dispatch($dto);
-        $this->generateReportUseCase->execute($dto);
+        GenerateReportJob::dispatch($dto);
+        // $this->generateReportUseCase->execute($dto);
 
         return response()->json([
             'message' => 'Report generation started. You will be notified once it is ready.',
