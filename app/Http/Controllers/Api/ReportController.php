@@ -20,15 +20,18 @@ use Illuminate\Http\JsonResponse;
 class ReportController extends Controller
 {
     private SaveReport $saveReportUseCase;
+    private GenerateReport $generateReportUseCase;
     private GetReport $getReportUseCase;
     private ListReports $listReportsUseCase;
 
     public function __construct(
         SaveReport $saveReportUseCase,
+        GenerateReport $generateReportUseCase,
         GetReport $getReportUseCase,
         ListReports $listReportsUseCase
     ) {
         $this->saveReportUseCase = $saveReportUseCase;
+        $this->generateReportUseCase = $generateReportUseCase;
         $this->getReportUseCase = $getReportUseCase;
         $this->listReportsUseCase = $listReportsUseCase;
     }
@@ -55,7 +58,8 @@ class ReportController extends Controller
             $request->input('birthDateTo')
         );
 
-        GenerateReportJob::dispatch($dto);
+        // GenerateReportJob::dispatch($dto);
+        $this->generateReportUseCase->execute($dto);
 
         return response()->json([
             'message' => 'Report generation started. You will be notified once it is ready.',
