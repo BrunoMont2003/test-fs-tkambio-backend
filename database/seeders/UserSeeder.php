@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         ]);
 
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             DB::table('users')->insert([
                 'id' => $faker->uuid,
                 'name' => $faker->name,

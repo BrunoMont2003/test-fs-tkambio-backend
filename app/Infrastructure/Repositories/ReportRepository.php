@@ -99,6 +99,7 @@ class ReportRepository implements ReportRepositoryInterface
             })
             ->skip($offset)
             ->take($limit)
+            ->orderBy('createdAt', 'desc')
             ->get();
 
         return $reports->toArray();
