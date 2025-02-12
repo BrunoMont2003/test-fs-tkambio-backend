@@ -9,7 +9,7 @@ if [ ! -d /.composer ]; then
 fi
 
 composer install
-php artisan migrate
+php artisan migrate:fresh --seed
 chmod -R ugo+rw /.composer
 
 if [ ! -z "$PORT" ]; then
